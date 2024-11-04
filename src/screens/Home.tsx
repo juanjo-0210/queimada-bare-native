@@ -7,6 +7,7 @@ import { Searchbar } from 'react-native-paper';
 import { searchQueryData } from '../service/searchQuery';
 import Category from '../components/Category';
 import { Icon } from '../components/Icon';
+import { LinearGradient } from './style';
 
 export const Home = () => {
 
@@ -52,8 +53,8 @@ export const Home = () => {
 
       <View>
         <Searchbar
-          icon={() => <Icon name='search-outline' color='#f49230'/>}
-          rippleColor='#f49230'
+          icon={() => <Icon name="search-outline" color="#f49230"/>}
+          rippleColor="#f49230"
           placeholder="Search"
           placeholderTextColor="#f49230"
           onChangeText={e => {
@@ -85,7 +86,6 @@ export const Home = () => {
                 resizeMode="cover"
                 style={styles.background}
               >
-                {/* {console.log(item.name.length)} */}
                 <Text style={styles.title}>{item.title}</Text>
               </ImageBackground>
             </View>
@@ -117,18 +117,21 @@ const styles = StyleSheet.create({
   },
   background: {
     flex: 1,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+
   },
   title: {
-    fontSize: 38,
+    fontSize: 28,
     fontWeight: 'bold',
-    color: '#000',
-    textShadowColor: '#f1f1f1',
-    textShadowOffset: {width: 1, height: 1},
-    textShadowRadius: 30,
+    color: '#fff',
+    backgroundColor: '#000000a7',
+    width: '100%',
+    textAlign: 'center',
   },
   row: {
     flexDirection: 'row',
   },
+  
 });

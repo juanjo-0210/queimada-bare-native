@@ -11,10 +11,12 @@ interface TextualMenu {
   icon: string;
   slug?: keyof HelperRootStackParams;
   switch?: boolean
+  mode?: boolean
 }
 
 export const Help = () =>  {
-  const [isSwitchOn, setIsSwitchOn] = useState(false);
+  const [isNotification, setIsNotification] = useState(false);
+  const [isMode, setIsMode] = useState(false);
   const navigation = useNavigation<NavigationProp<HelperRootStackParams>>();
 
 
@@ -31,6 +33,12 @@ export const Help = () =>  {
       icon: 'notifications-outline',
       switch: true,
     },
+    {
+      id: '3',
+      name: 'Mode',
+      icon: 'moon-outline',
+      mode: true,
+    },
   ];
 
   return (
@@ -42,12 +50,21 @@ export const Help = () =>  {
             onPress={() => item.slug ? navigation.navigate(item.slug) : console.log('none')}
           >
             <View style={Styles.row}>
-              <Icon name={item.icon} size={25} color="#f49230"/>
-              <Text style={Styles.text}>{item.name}</Text>
+              <View style={Styles.optionGroup}>
+                <Icon name={item.icon} size={25} color="#f49230"/>
+                <Text style={Styles.text}>{item.name}</Text>
+              </View>
               {item.switch && <Switch
-                value={isSwitchOn}
-                onValueChange={() => setIsSwitchOn(!isSwitchOn)}
+                value={isNotification}
+                onValueChange={() => setIsNotification(!isNotification)}
                 color="#f49230"
+                style={Styles.switch}
+              />}
+              {item.mode && <Switch
+                value={isMode}
+                onValueChange={() => setIsMode(!isMode)}
+                color="#f49230"
+                style={Styles.switch}
               />}
             </View>
           </Pressable>
@@ -73,8 +90,17 @@ const Styles = StyleSheet.create({
     marginTop: 16,
     padding: 5,
     alignItems: 'center',
+    justifyContent:'space-between',
   },
   text: {
     color: 'black',
+  },
+  optionGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  switch: {
+    alignSelf: 'baseline',
   },
 });

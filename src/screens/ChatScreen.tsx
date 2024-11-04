@@ -1,13 +1,14 @@
-/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
-import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TextInput } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
-import { IconButton, TextInput } from 'react-native-paper';
+import { IconButton } from 'react-native-paper';
 import { Icon } from '../components/Icon';
-import { gptConsult, GptResponse } from '../api/chatGPT';
+import { gptConsult } from '../api/chatGPT';
 import { sendMessage } from '../service/messages';
 import { getMessageRT } from './onSnapshot';
 import { serverTimestamp } from 'firebase/firestore';
+
+
 interface Message {
   message: string;
   isUser: boolean;
@@ -17,7 +18,7 @@ export const ChatScreen = () => {
 
   const [text, setText] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
-  const flatListRef = useRef(null);
+  const flatListRef = useRef<FlatList<Message>>(null);
 
   useEffect(() => {
     const unsub = getMessageRT(setMessages);
@@ -26,7 +27,7 @@ export const ChatScreen = () => {
 
   useEffect(() => {
     if (messages.length > 0) {
-      flatListRef.current.scrollToEnd({ animated: true });
+      flatListRef.current?.scrollToEnd({ animated: true });
     }
   }, [messages]);
 
@@ -37,12 +38,14 @@ export const ChatScreen = () => {
 
             <FlatList
               ref={flatListRef}
-              data={messages}
+              data={messages.reverse()}
+              inverted={true}
               renderItem={({item}) => (
                 <View>
                   <Text style={styles(item.isUser).cloudStyle}>{item.message}</Text>
                 </View>
               )}
+
             />
 
 
@@ -50,13 +53,13 @@ export const ChatScreen = () => {
         </View>
       <View style={styles().writeBox}>
           <TextInput
-            outlineColor="#f49230"
             onChangeText={setText}
             value={text}
-            style={{width:'90%'}}
+            style={styles().input}
           />
           <IconButton
-            icon={() => <Icon name="send" />}
+            icon={() => <Icon name="send" color="#f49230"/>}
+            style={styles().button}
             onPress={ async () => {
               const aux = text;
               setText('');
@@ -75,7 +78,7 @@ export const ChatScreen = () => {
                     isUser: false,
                     date: serverTimestamp(),
                     iaResponse: false,
-                    errMessage: error.toString(),
+                    errMessage: error?.toString(),
                   });
 
                 }
@@ -102,17 +105,33 @@ const styles = (isUser?: boolean) => (
       display:'flex',
       flexWrap: 'nowrap',
       flexDirection: 'row',
+      height: 48,
+      alignItems: 'center',
+      paddingVertical: 10,
+      paddingHorizontal: 2,
     },
     cloudStyle: {
       alignSelf: isUser ? 'flex-end' : 'flex-start',
-      paddingVertical: 2,
+      paddingVertical: 5,
       paddingHorizontal: 8,
       maxWidth: 450,
-      backgroundColor: isUser ? '#f49230' : 'green',
+      backgroundColor: isUser ? '#f49230' : '#24aa2a',
       color: 'white',
       marginHorizontal: 5,
       marginVertical: 5,
       borderRadius: 5,
+    },
+    input: {
+      flex: 15,
+      height: 38,
+      borderRadius: 20,
+      backgroundColor: '#fff',
+      borderColor: '#f49230',
+      borderWidth: 1,
+    },
+    button: {
+      flex: 1,
+      color: '#f49230',
     },
   })
 );
