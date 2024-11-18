@@ -22,6 +22,6 @@ if (!getApps().length) {
 }
 export const db = getFirestore(firebaseApp);
 
-// export const auth = initializeAuth(firebaseApp, {
-//     persistence: getReactNativePersistence(AsyncStorage),
-// });
+//  export const auth = initializeAuth(firebaseApp, {
+//      persistence: getReactNativePersistence(AsyncStorage),
+//  });

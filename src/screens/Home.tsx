@@ -64,7 +64,7 @@ export const Home = () => {
           value={searchQuery}
         />
         {/* <ToggleButton icon="format-align-right" value="right" /> */}
-        <Category />
+        {/* <Category /> */}
       </View>
       <FlatList
         data={!isSearch ? games : searchRes}
@@ -86,7 +86,7 @@ export const Home = () => {
                 resizeMode="cover"
                 style={styles.background}
               >
-                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.title} ellipsizeMode="tail" numberOfLines={1}>{item.title}</Text>
               </ImageBackground>
             </View>
           </Pressable>
@@ -106,12 +106,11 @@ const styles = StyleSheet.create({
   itemContainer: {
     flex: 1,
     margin: 5,
-    // Ajustar el ancho del item para manejar dos columnas
     maxWidth: '48%',
   },
   contentGame: {
     flex: 1,
-    aspectRatio: 1, // Mantiene la relación de aspecto cuadrada
+    aspectRatio: 1,
     borderRadius: 10,
     overflow: 'hidden',
   },
@@ -119,16 +118,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-end',
 
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#fff',
-    backgroundColor: '#000000a7',
+    backgroundColor: '#f49230',
     width: '100%',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   row: {
     flexDirection: 'row',

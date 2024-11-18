@@ -7,6 +7,7 @@ import { gptConsult } from '../api/chatGPT';
 import { sendMessage } from '../service/messages';
 import { getMessageRT } from './onSnapshot';
 import { serverTimestamp } from 'firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 interface Message {
@@ -63,7 +64,7 @@ export const ChatScreen = () => {
             onPress={ async () => {
               const aux = text;
               setText('');
-              if (aux !== '') {
+              if (aux.trim() !== '') {
 
                 try {
 

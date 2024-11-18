@@ -32,7 +32,7 @@ export const BottomTabsNavigation = () => {
           headerShown: false,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="reserve"
         component={Reserve}
         options={{
@@ -44,7 +44,7 @@ export const BottomTabsNavigation = () => {
           tabBarIcon: ({color}) => (<Icon name={'calendar'} color={color}/>),
 
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Chat"
         component={ChatScreen}

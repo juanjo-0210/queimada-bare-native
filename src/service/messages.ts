@@ -1,9 +1,9 @@
-import { FieldValue } from "firebase/firestore";
-import { addDoc, collection, db } from "../api/firebaseConfig"
+import { FieldValue } from 'firebase/firestore';
+import { addDoc, collection, db } from '../api/firebaseConfig';
 
 
 
-const collectionName = "Asistent"
+const collectionName = 'Asistent';
 
 interface SenderMessage {
   message: string;
@@ -14,7 +14,7 @@ interface SenderMessage {
 }
 
 export const sendMessage = async (obj: SenderMessage) => {
-  const colRef = collection(db, collectionName)
-  const res = await addDoc(colRef, obj)
-  return res.id
-}
+  const colRef = collection(db, collectionName);
+  const res = await addDoc(colRef, obj);
+  return res.id;
+};
